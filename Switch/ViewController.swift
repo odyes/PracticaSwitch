@@ -9,17 +9,42 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var swPermisoNavegacion: UISwitch!
+    @IBOutlet weak var lblAdvertenciaSwitch: UILabel!
+    @IBOutlet weak var lblTexto: UILabel!
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        lblAdvertenciaSwitch.isHidden = true
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destino = segue.destination as! ModificarController
+        destino.texto = lblTexto.text
+        destino.callbackActualizar = actualizarTexto 
+    }
+    
+    @IBAction func doTapIrOtroVC(_ sender: Any) {
+        lblAdvertenciaSwitch.isHidden = true
+        if swPermisoNavegacion.isOn{
+            performSegue(withIdentifier: "goToModificar", sender: self)
+        } else{
+            lblAdvertenciaSwitch.isHidden = false
+        }
+    }
+    
+    func actualizarTexto(texto: String){
+        lblTexto.text = texto
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-
+///////////hola
 }
 
